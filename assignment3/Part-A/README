@@ -1,0 +1,18 @@
+--------------------------
+running applications
+--------------------------
+To run the python applications in TensorFlow, please execute the following commands for each application:
+> bash bigmatrixmultiplication.sh
+> bash synchronoussgd.sh
+> bash launch_asyncsgd.sh
+> bash batchsynchronoussgd.sh
+> bash launch_batchasyncsgd.sh
+
+* Arguments are already hard coded in the <application>.py files, please feel free to change them if you need.
+* At the beginning of each script, `tfdef.sh` will be sourced, and the unclosed cluster jobs will be closed, this
+  is just for sanity check to make sure the script will be run correctly.
+* For `launch_asyncsgd.sh` and `launch_batchasyncsgd.sh`, the output will be redirected into local files and all
+  those output file will be copied back to master side.
+  for asyncsgd, the output files' name are in format of async-<task_index>.out
+  for batchasyncsgd, the output files' name are in format of batchasync-<task_index>.out
+  in which <task_index> is in range of {0, 1, 2, 3, 4}
