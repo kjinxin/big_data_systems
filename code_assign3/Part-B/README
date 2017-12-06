@@ -1,0 +1,70 @@
+______________________________________________________
+README: Assignment 3 PartB(GraphX) of Big Data Systems
+______________________________________________________
+
+
+
+Application logic:
+	- PartBApplication1Question1.scala:
+		Run the pagerank algorithm on Live Journal data(soc-LiveJournal1.txt) and use the Pregel API implemented in Graphx to calculate.
+	For the second application, we use the data collected from twitter, there are 289 lines in total which means there are 289 vertices.
+	- PartBApplication2Question1.scala:
+   		Write a checkCommonWord function to generate the qualified edges and then use the triplets API to calculate the satisfied edges number.
+	- PartBApplication2Question2.scala:
+		Refer to Neighborhood Aggregation example, we use graph.aggregateMessages to count the outcome degree of each vertex. After that, we use a customeized cmp function to do the reduce to select the most popular vertex. 
+	- PartBApplication2Question3.scala:
+		Refer to Neighborhood Aggregation example, we use graph.aggregateMessages to count the outcome degree of each vertex and the sum of the neighbor words number. After that, we use a reduce function to compute the average neighbor words length.	
+	- PartBApplication2Question4.scala:
+		In order to find the most popular word, we just need to use the vertex to flatmap each word, and then do a reduce.
+	- PartBApplication2Question5.scala:
+		Use connected components of graph, we could labels each connected component of the graph with the ID of its lowest-numbered vertex. After that, we only need a map and a reduce operations to get the size of the largest component of the graph.	
+	- PartBApplication2Question4.scala:
+		First, we use the same way in question4 to find the most popular word. Then we use rdd of verteces to do a contain selection. After that we could do a reduce to sum the appearance of corresponding time intervals.
+		
+			 
+
+
+_____________________
+Source Code Directory:
+______________________
+	- PartBApplication1Question1.scala : PageRank application constructed with Graph-X.
+        - PartBApplication2Question1.scala : Find the number of edges where the number of words in the source vertex is strictly larger than the number of words in the destination vertex.
+	- PartBApplication2Question2.scala : Find the most popular vertex.
+	- PartBApplication2Question3.scala : Find the average number of words in every neighbor of a vertex.
+	- PartBApplication2Question4.scala : Find the most popular word across all the tweets.
+	- PartBApplication2Question5.scala : Find the size of the largest subgraph which connects any two vertices.
+	- PartBApplication2Question6.scala : Find the number of time intervals which have the most popular word.
+
+__________________________
+Compiling the application:
+__________________________
+To compile the scala applications, run the following commands on the console:
+> source run.sh
+> cd /home/ubuntu/assign3_graphx/spark_graphx
+> mvn clean package
+
+________________________
+Running the application:
+________________________
+To run the scala applications, run the following commands on the console:
+> source run.sh
+> $SPARK_HOME/bin/spark-submit --class <Application Name> /home/ubuntu/assign3_graphx/spark_graphx/target/spark_graphx-1.0.jar <arguments>
+
+<Application Name> : Choose the following applications to run
+	-- PartBApplication1Question1
+        -- PartBApplication2Question1
+        -- PartBApplication2Question2
+        -- PartBApplication2Question3 
+        -- PartBApplication2Question4 
+        -- PartBApplication2Question5
+	-- PartBApplication2Question6
+
+<arguments> : Corresponding arguments for each application.
+For application PartBApplication1Question1, the <arguments> == <input graph path> <number of iterations>
+	<input graph path> : the path of the input graph file
+	<number of iterations> : how many iterations to run the pagerank algorithm
+	e.g. $SPARK_HOME/bin/spark-submit --class PartBApplication1Question1 /home/ubuntu/assign3_graphx/spark_graphx/target/spark_graphx-1.0.jar /soc-LiveJournal1.txt 20
+
+For the other applications, the <arguments> == <input graph path>
+	<input graph path> : the path of the input graph file
+	e.g. $SPARK_HOME/bin/spark-submit --class PartBApplication2Question1 /home/ubuntu/assign3_graphx/spark_graphx/target/spark_graphx-1.0.jar /twitter_graph.txt
